@@ -58,7 +58,7 @@ function realtimeClock() {
 
 requestAnimationFrame(realtimeClock);
 
-function myFunction() {
+function calendarInput() {
 	let time = [
 		"8am:",
 		"9am:",
@@ -109,4 +109,4 @@ function myFunction() {
 	}
 }
 
-myFunction();
+calendarInput();
