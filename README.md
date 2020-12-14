@@ -11,6 +11,7 @@
 3. If the user is currently on the hour the hour box will be red.
 4. All previous hours before the current one will be grey.
 5. The hours left in the day will be green.
+6. Also I added a animation to the buttons if the user writes something in the text box and doesn't save it.
 
 
 
