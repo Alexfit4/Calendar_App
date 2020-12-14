@@ -1,112 +1,105 @@
-const span = document.getElementById("span");
-const formPlanner = document.getElementById("formPlanner");
-const plannerContainer = document.getElementById("plannerContainer");
-const timeContainer = document.getElementById("timeContainer");
-const time = document.getElementById("time");
-const todoinput = document.getElementById("todoinput");
+// Varaible Section //
 
-Date.prototype.monthName = function () {
-	const monthsOfYear = [
-		"January",
-		"February",
-		"March",
-		"April",
-		"May",
-		"June",
-		"July",
-		"August",
-		"September",
-		"October",
-		"November",
-		"December",
-	];
-	return monthsOfYear[this.getMonth()];
-};
+var currentDate = dayjs().format("dddd, MMMM DD YYYY");
+var currentHour = dayjs().format("h");
+var currentMinute = dayjs().format("mm");
+var current12 = dayjs().format("A");
+var columnWidths = [2, 8, 2];
+var columnNumber = 0;
+var testHour = dayjs().hour();
 
-// As with the previous block, this block states the days of the week so the script
-// can match the named days of the week to corresponding numerical values.
+// Used API to access current time //
+$("#currentDay").text(currentHour + ":" + currentMinute + " " + currentDate);
 
-Date.prototype.dayName = function () {
-	const daysOfWeek = [
-		"Sunday",
-		"Monday",
-		"Tuesday",
-		"Wednesday",
-		"Thursday",
-		"Friday",
-		"Saturday",
-	];
-	return daysOfWeek[this.getDay()];
-};
+// Timeblock array holding an object for each workday hour
+var timeBlocks = [
+	{
+		time: 8,
+		showTime: "8AM",
+		hourEvent: "",
+	},
+	{
+		time: 9,
+		showTime: "9AM",
+		hourEvent: "",
+	},
+	{
+		time: 10,
+		showTime: "10AM",
+		hourEvent: "",
+	},
+	{
+		time: 11,
+		showTime: "11AM",
+		hourEvent: "",
+	},
+	{
+		time: 12,
+		showTime: "12PM",
+		hourEvent: "",
+	},
+	{
+		time: 13,
+		showTime: "1PM",
+		hourEvent: "",
+	},
+	{
+		time: 14,
+		showTime: "2PM",
+		hourEvent: "",
+	},
+	{
+		time: 15,
+		showTime: "3PM",
+		hourEvent: "",
+	},
+	{
+		time: 16,
+		showTime: "4PM",
+		hourEvent: "",
+	},
+	{
+		time: 17,
+		showTime: "5PM",
+		hourEvent: "",
+	},
+	{
+		time: 18,
+		showTime: "6PM",
+		hourEvent: "",
+	},
+];
 
-function realtimeClock() {
-	const now = new Date(),
-		today = now.dayName(),
-		year = now.getFullYear(),
-		month = now.monthName(),
-		day = now.getDate(),
-		secs = ("0" + now.getSeconds()).slice(-2),
-		mins = ("0" + now.getMinutes()).slice(-2),
-		hours = now.getHours(),
-		container = document.querySelector(".clock");
+// Nested Col into Rows // -Thanks Johnnie for helping me out with this!
+for (var i = 0; i < timeBlocks.length; i++) {
+	var row = $("<div>");
+	row.attr("class", "row");
+	$(".container").append(row);
+	for (var j = 0; j < 3; j++) {
+		if (j === 0) {
+			var timeDisplay = $("<div>");
+			timeDisplay.text(timeBlocks[i].showTime);
+			timeDisplay.attr("class", "col-2 time-block hour");
+		} else if (j === 1) {
+			var planner = $("<textarea>");
+			var event;
+			planner.attr("class", "col-8 description");
+			planner.attr("style", "color: black");
+			planner.attr("id", "anEvent");
 
-	span.textContent = `${today}, ${day} ${month} ${year}. 
-    Time: ${hours}:${mins}:${secs}`;
-
-	requestAnimationFrame(realtimeClock);
-}
-
-requestAnimationFrame(realtimeClock);
-
-function calendarInput() {
-	let time = [
-		"8am:",
-		"9am:",
-		"10am:",
-		"11am:",
-		"12pm:",
-		"1pm:",
-		"2pm:",
-		"3pm:",
-		"4pm:",
-		"5pm:",
-		"6pm:",
-	];
-
-	for (let i = 0; i < time.length; i++) {
-		console.log(time[i]);
-
-		let div = document.createElement("div");
-		div.id = "timeContainer";
-		div.className = "input-group";
-		div.className = "flex-nowrap";
-
-		let span = document.createElement("span");
-		span.id = "time";
-		span.className = "input-group-text";
-		span.innerText = `${time[i]}`;
-		// console.log(span);
-
-		let input = document.createElement("input");
-		input.id = "todoinput";
-		input.className = "form-control";
-		input.type = "text";
-		// console.log(input);
-
-		let button = document.createElement("button");
-		button.id = "saveButton";
-		button.className = "btn";
-		button.className = "btn-outline-secondary";
-		button.innerText = "SAVE";
-		button.type = "button";
-
-		div.appendChild(span);
-		span.appendChild(input);
-		span.appendChild(button);
-
-		plannerContainer.appendChild(div);
-		console.log(plannerContainer);
+			// Changes background color of text box depending on what time it is. If time is on the current hour color turns red, All the time before will be turned grey, and all the time ahead will be green //
+			if (testHour === timeBlocks[i].time) {
+				$(planner).addClass("present");
+			} else if (testHour < timeBlocks[i].time) {
+				$(planner).addClass("future");
+			} else {
+				$(planner).addClass("past");
+			}
+		} else if (j === 2) {
+			var save = $("<button>");
+			save.attr("class", "col-2 saveBtn fas fa-save fa-4x fa-fw");
+		}
 	}
+	// Send column detail to each row
+	$(row).append(timeDisplay, planner, save);
 }
-
-calendarInput();
