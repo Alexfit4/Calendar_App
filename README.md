@@ -7,5 +7,5 @@ Daily Calander
 5. The hours left in the day will be green.
 
 
-![picture](Assets\CalendarApp.png)
+
 
