@@ -2,6 +2,7 @@
 
 ## Github Link and  App Link:
 1. https://github.com/Alexfit4/Calendar_App
+2. https://alexfit4.github.io/Calendar_App/
 
 ## Instructions and details of app:
 
