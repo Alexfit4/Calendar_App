@@ -1,4 +1,7 @@
-Daily Calander
+### Daily Calander
+
+## Github Link and  App Link:
+1. https://github.com/Alexfit4/Calendar_App
 
 1. Shows live hour and live date
 2. Will allow the user to input a task and save it to the local storage
@@ -9,3 +12,12 @@ Daily Calander
 
 
 
+## Credits
+1. First I want to thank Johnnie Simpson for really helping me out with my for loop, the columns and rows!
+2. A bunch of youtube videos
+
+#### Check out Johnnie's Github here: https://github.com/balokdecoy
+
+
+Screen Shot of the App
+![CalendarApp](https://user-images.githubusercontent.com/69173896/102137628-1f9e9580-3e29-11eb-8eff-af7fbb63f0de.png)
