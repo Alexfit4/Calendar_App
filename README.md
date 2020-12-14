@@ -3,6 +3,8 @@
 ## Github Link and  App Link:
 1. https://github.com/Alexfit4/Calendar_App
 
+## Instructions and details of app:
+
 1. Shows live hour and live date
 2. Will allow the user to input a task and save it to the local storage
 3. If the user is currently on the hour the hour box will be red.
