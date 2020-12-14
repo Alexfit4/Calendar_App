@@ -11,6 +11,13 @@ var testHour = dayjs().hour();
 // Used API to access current time //
 $("#currentDay").text(currentHour + ":" + currentMinute + " " + currentDate);
 
+// Updates time without refreshing page every second and puts actual time //
+setInterval(function () {
+	var currentHour = dayjs().format("h");
+	var currentMinute = dayjs().format("mm");
+	$("#currentDay").text(currentHour + ":" + currentMinute + " " + currentDate);
+}, 1000);
+
 // Timeblock array holding an object for each workday hour
 var timeBlocks = [
 	{
@@ -82,7 +89,8 @@ for (var i = 0; i < timeBlocks.length; i++) {
 			timeDisplay.attr("class", "col-2 time-block hour");
 		} else if (j === 1) {
 			var planner = $("<textarea>");
-			var event;
+			var eventText = localStorage.getItem(timeBlocks[i].showTime);
+			planner.val(eventText);
 			planner.attr("class", "col-8 description");
 			planner.attr("style", "color: black");
 			planner.attr("id", "anEvent");
@@ -103,3 +111,23 @@ for (var i = 0; i < timeBlocks.length; i++) {
 	// Send column detail to each row
 	$(row).append(timeDisplay, planner, save);
 }
+
+$(".saveBtn").click(function (e) {
+	e.preventDefault();
+
+	// using Jquery to access the pervious element to the one we are targetting 
+	var eventText = $(e.target).prev("textarea").val();
+	var eventTime = $(e.target).prev().prev().text();
+
+	localStorage.setItem(eventTime, eventText);
+
+	$(e.target).removeClass(
+		"animate__animated animate__flash animate__infinite"
+	);
+});
+
+$("textarea").change(function (e) {
+	$(e.target)
+		.next()
+		.addClass("animate__animated animate__flash animate__infinite");
+});
